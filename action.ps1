@@ -26,7 +26,7 @@ try {
     $accessToken = (Invoke-RestMethod @splatTokenParams).access_token
     Write-Information "Creating AzureAD group [$($formObject.displayName)].."
 
-    $headers = New-Object "[System.Collections.Generic.Dictionary[[String],[String]]]::new()"
+    $headers = [System.Collections.Generic.Dictionary[string, string]]::new()
     $headers.Add("Authorization", "Bearer $($accessToken)")
     $headers.Add("Content-Type", "application/json")
 
@@ -50,8 +50,7 @@ try {
         TargetIdentifier  = $([string]$response.id) 
     }
     #send result back  
-    Write-Information -Tags "Audit" -MessageData $log
-       
+    Write-Information -Tags "Audit" -MessageData $auditLog
 }
 catch {
     $ex = $_
