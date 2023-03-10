@@ -63,11 +63,11 @@ catch {
         IsError           = $true
     }
     if ($($ex.Exception.GetType().FullName -eq 'Microsoft.PowerShell.Commands.HttpResponseException')) {
-        $auditLog.Message = "Could not execute AzureActiveDirectory action: [GroupCreate] for: [$($formObject.displayName)]"
-        Write-Error "Could not execute AzureActiveDirectory action: [GroupCreate] for: [$($formObject.displayName)], error: $($ex.ErrorDetails)"
-    }else{
-        Write-Information -Tags "Audit" -MessageData $auditLog
-        Write-Error "Could not execute AzureActiveDirectory action: [GroupCreate] for: [$($formObject.DisplayName)], error: $($ex.Exception.Message)"
-    }    
+        $auditLog.message = "Could not execute AzureActiveDirectory action: [GroupCreate] for: [$($formObject.displayName)]"
+    } else {
+        $auditLog.message = "Could not execute AzureActiveDirectory action: [GroupCreate] for: [$($formObject.DisplayName)], error: $($ex.Exception.Message)"
+    }
+    Write-Information -Tags "Audit" -MessageData $auditLog
+    Write-Error "$($auditLog.Message)"  
 }
 #########################################################
